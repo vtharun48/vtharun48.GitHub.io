@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exim Data Provider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header a:hover {
+            color: #00c3ff;
+        }
+
+        .user-menu {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: none;         }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+
+        .name-bar {
+            background: #004d80;
+            color: white;
+            padding: 10px 20px;
+            text-align: right;
+            font-size: 16px;
+            display: none;       
+        }
+
+        .name-bar strong {
+            margin-right: 5px;
+        }
+
+        .hero {
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero .btn {
+            display: inline-block;
+            margin: 15px 10px;
+            padding: 12px 30px;
+            color: #fff;
+            background: #0056b3;
+            border: none;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero .btn:hover {
+            background: #00c3ff;
+            transform: translateY(-3px);
+        }
+
+        .features {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f4f4f4;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-box h3 {
+            color: #1e73be;
+        }
+
+        .dashboard {
+            padding: 60px 20px;
+            background: #f9f9f9;
+            display: none; 
+        }
+
+        .dashboard h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .welcome-message {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .quick-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background: #f4f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1e73be;
+        }
+
+        .stat-card h4 {
+            margin-top: 0;
+            color: #666;
+        }
+
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e73be;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="user-menu">
+        <button class="logout-btn" id="logoutBtn">Log Out</button>
+        <a href="Login-page.html" class="login-btn" id="loginBtn">Login</a>
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+
+<div class="name-bar" id="nameBar">
+    <strong>Welcome,</strong> <span id="userName"></span>
+</div>
+
+<section class="hero" id="home">
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="global-trade-video.mp4" type="video/mp4">
+            <!-- Add alternative sources if needed -->
+            <!-- <source src="global-trade-video.webm" type="video/webm"> -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="hero-content">
+        <h1>Global Export and Import Data Provider</h1>
+        <p>Access trade data easily with our trusted export and import services.</p>
+        <a href="request-demo.html" class="btn">Request a Booking</a>
+        <a href="free-trial.html" class="btn" id="heroLoginBtn">Start free trial</a>
+    </div>
+</section>
+
+
+<section class="dashboard" id="dashboard">
+    <h2>Your Dashboard</h2>
+    <div class="dashboard-content">
+        <div class="welcome-message">
+            Welcome back, <span id="dashboardUserName"></span>! Here's your latest trade data overview.
+        </div>
+        <div class="quick-stats">
+            <div class="stat-card">
+                <h4>Searches This Month</h4>
+                <div class="stat-value">47</div>
+            </div>
+            <div class="stat-card">
+                <h4>Reports Generated</h4>
+                <div class="stat-value">12</div>
+            </div>
+            <div class="stat-card">
+                <h4>Saved Queries</h4>
+                <div class="stat-value">8</div>
+            </div>
+        </div>
+        <p>View your <a href="reports.html">recent reports</a> or <a href="analytics.html">analyze new data</a>.</p>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Why Choose Global Trade Data?</h2>
+    <div class="features-grid">
+        <div class="feature-box">
+            <h3>Comprehensive Coverage</h3>
+            <p>Access trade data from over 100 countries with detailed information on millions of shipments worldwide.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Real-time Updates</h3>
+            <p>Stay ahead with the most current import and export data, updated daily from customs sources globally.</p>
+        </div>
+        <div class="feature-box">
+            <h3>Advanced Analytics</h3>
+            <p>Gain valuable insights with our powerful analytics tools designed to transform data into actionable intelligence.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Global Trade Data. All Rights Reserved.</p>
+</footer>
+
+<script>
+    window.onload = function() {
+        checkLoginStatus();
+    };
+    
+    function checkLoginStatus() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const userName = localStorage.getItem('userName');
+        
+        if (isLoggedIn) {
+
+            document.getElementById('logoutBtn').style.display = 'block';
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('nameBar').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'block';
+            
+
+            if (userName) {
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('dashboardUserName').textContent = userName;
+            } else {
+                document.getElementById('userName').textContent = 'User';
+                document.getElementById('dashboardUserName').textContent = 'User';
+            }
+            
+
+            if (document.getElementById('heroLoginBtn')) {
+                document.getElementById('heroLoginBtn').style.display = 'none';
+            }
+        } else {
+
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('nameBar').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+            
+
+            if (document.getElementById('heroLoginBtn')) {
+                document.getElementById('heroLoginBtn').style.display = 'inline-block';
+            }
+        }
+    }
+    
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('rememberMe');
+        
+
+        alert('You have been logged out.');
+        
+   
+        checkLoginStatus();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Exim Data Provider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        header a:hover {
+            color: #00c3ff;
+        }
+        /* Categories Section */
+        .categories {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f4f4f4;
+        }
+        .categories h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #003366;
+        }
+        .category-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        .category-box {
+            text-align: center;
+            max-width: 300px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .category-box:hover {
+            transform: scale(1.05);
+        }
+        .category-box img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .category-box h3 {
+            margin: 15px 0;
+            color: #1e73be;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e73be;
+            color: white;
+        }
+        .category-detail {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .category-detail h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .category-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .category-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        .category-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .category-description {
+            flex: 2;
+            min-width: 300px;
+        }
+        .product-list {
+            margin-top: 40px;
+        }
+        .product-list h2 {
+            color: #1e73be;
+            border-bottom: 2px solid #1e73be;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .product-card img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .back-to-categories {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 10px 20px;
+            background: #003366;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-to-categories:hover {
+            background: #1e73be;
+        }
+        @media (max-width: 768px) {
+            .category-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .category-content {
+                flex-direction: column;
+            }
+            header nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="index.html#about">About Us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div id="content">
+        <section class="categories">
+            <h1>Our Product Categories</h1>
+            <div class="category-grid">
+                <div class="category-box" onclick="loadCategory('agro')">
+                    <img src="agro-commodities.png" alt="Agro Commodities">
+                    <h3>AGRO-COMMODITIES</h3>
+                </div>
+                <div class="category-box" onclick="loadCategory('fmcg')">
+                    <img src="fmcg.png" alt="FMCG">
+                    <h3>FMCG</h3>
+                </div>
+                <div class="category-box" onclick="loadCategory('general')">
+                    <img src="general-trading.png" alt="General Trading">
+                    <h3>GENERAL-TRADING</h3>
+                </div>
+                <div class="category-box" onclick="loadCategory('machinery')">
+                    <img src="Machinery and vehicles.png" alt="Machinery and Vehicles">
+                    <h3>MACHINERY AND VEHICLES</h3>
+                </div>
+                <div class="category-box" onclick="loadCategory('metals')">
+                    <img src="Metals and alloys.png" alt="Metal and Alloys">
+                    <h3>METAL AND ALLOYS</h3>
+                </div>
+                <div class="category-box" onclick="loadCategory('woods')">
+                    <img src="woods.png" alt="Woods">
+                    <h3>WOODS</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Global Trade Data. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const categoryContent = {
+            agro: {
+                title: "Agro Commodities",
+                image: "agro-commodities.png",
+                description: "Our Agro Commodities division specializes in the global trade of agricultural products that form the backbone of food supply chains worldwide. We connect producers with buyers across continents, ensuring efficient and reliable delivery of high-quality agricultural goods.",
+                productList: [
+                    { name: "Rice", image: "rice.png" },
+                    { name: "Wheat", image: "wheat.png" },
+                    { name: "Corn", image: "corn.png" },
+                    { name: "Soybeans", image: "soybeans.png" },
+                    { name: "Coffee Beans", image: "coffee beans.png" },
+                    { name: "Sugar", image: "sugar.png" }
+                ]
+            },
+            fmcg: {
+                title: "Fast-Moving Consumer Goods",
+                image: "fmcg.png",
+                description: "Our FMCG department handles a wide range of consumer products that are sold quickly and at relatively low cost. We provide comprehensive data on international trade flows for packaged foods, beverages, toiletries, over-the-counter drugs, and other consumables that are in high demand across global markets.",
+                productList: [
+                    { name: "Packaged Foods", image: "Packaged Foods.png" },
+                    { name: "Beverages", image: "Beverages.png" },
+                    { name: "Personal Care", image: "Personal Care.png" },
+                    { name: "Household Products", image: "Household Products.png" },
+                    { name: "Over-the-counter Medicines", image: "Over-the-counter Medicines.png" },
+                    { name: "Confectionery", image: "Confectionery.png" }
+                ]
+            },
+            general: {
+                title: "General Trading",
+                image: "general-trading.png",
+                description: "Our General Trading division covers a diverse range of products that don't fall into specific categories. We provide comprehensive trade data for various goods across international markets, helping businesses identify new opportunities and understand market trends in miscellaneous product segments.",
+                productList: [
+                    { name: "Textiles", image: "Textiles.png" },
+                    { name: "Handicrafts", image: "Handicrafts.png" },
+                    { name: "Office Supplies", image: "Office Supplies.png" },
+                    { name: "Sporting Goods", image: "Sporting Goods.png" },
+                    { name: "Toys & Games", image: "Toys & Games.png" },
+                    { name: "Electronics", image: "Electronics.png" }
+                ]
+            },
+            machinery: {
+                title: "Machinery and Vehicles",
+                image: "Machinery and vehicles.png",
+                description: "Our Machinery and Vehicles department specializes in tracking the global trade of industrial equipment, transportation vehicles, and related parts. We provide detailed insights into import-export patterns of construction machinery, agricultural equipment, automobiles, aircraft, ships, and specialized vehicles used across various industries.",
+                productList: [
+                    { name: "Agricultural Equipment", image: "/api/placeholder/200/150" },
+                    { name: "Construction Machinery", image: "/api/placeholder/200/150" },
+                    { name: "Automobiles", image: "/api/placeholder/200/150" },
+                    { name: "Commercial Vehicles", image: "/api/placeholder/200/150" },
+                    { name: "Aircraft Parts", image: "/api/placeholder/200/150" },
+                    { name: "Marine Vessels", image: "/api/placeholder/200/150" }
+                ]
+            },
+            metals: {
+                title: "Metals and Alloys",
+                image: "Metals and alloys.png",
+                description: "Our Metals and Alloys division tracks the international trade of both precious and industrial metals across global markets. We provide comprehensive data on raw materials, semi-finished products, and finished metal goods, helping businesses navigate complex supply chains and understand market trends in this critical sector.",
+                productList: [
+                    { name: "Steel", image: "/api/placeholder/200/150" },
+                    { name: "Aluminum", image: "/api/placeholder/200/150" },
+                    { name: "Copper", image: "/api/placeholder/200/150" },
+                    { name: "Gold", image: "/api/placeholder/200/150" },
+                    { name: "Silver", image: "/api/placeholder/200/150" },
+                    { name: "Specialty Alloys", image: "/api/placeholder/200/150" }
+                ]
+            },
+            woods: {
+                title: "Woods and Timber Products",
+                image: "woods.png",
+                description: "Our Woods department specializes in monitoring the global trade of timber and wood-based products. We provide detailed insights into the import-export patterns of raw lumber, processed wood products, furniture, and specialized wooden goods across international markets, helping businesses make informed decisions in this sustainable resource sector.",
+                productList: [
+                    { name: "Hardwood Lumber", image: "/api/placeholder/200/150" },
+                    { name: "Softwood", image: "/api/placeholder/200/150" },
+                    { name: "Plywood", image: "/api/placeholder/200/150" },
+                    { name: "Wooden Furniture", image: "/api/placeholder/200/150" },
+                    { name: "Wooden Flooring", image: "/api/placeholder/200/150" },
+                    { name: "Paper Products", image: "/api/placeholder/200/150" }
+                ]
+            }
+        };
+
+        function loadCategory(category) {
+            const content = categoryContent[category];
+            const contentDiv = document.getElementById('content');
+            
+            // Create category detail page HTML
+            let html = `
+                <section class="category-detail">
+                    <h1>${content.title}</h1>
+                    <div class="category-content">
+                        <div class="category-image">
+                            <img src="${content.image}" alt="${content.title}">
+                        </div>
+                        <div class="category-description">
+                            <p>${content.description}</p>
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <h2>Products</h2>
+                        <div class="products">
+            `;
+            
+            // Add products
+            content.productList.forEach(product => {
+                html += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                    </div>
+                `;
+            });
+            
+
+            html += `
+                        </div>
+                    </div>
+                    <a href="#" class="back-to-categories" onclick="loadHomePage(); return false;">Back to Categories</a>
+                </section>
+            `;
+            
+
+            contentDiv.innerHTML = html;
+            
+
+            history.pushState(null, null, `#${category}`);
+        }
+
+
+        function loadHomePage() {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = `
+                <section class="categories">
+                    <h1>Our Product Categories</h1>
+                    <div class="category-grid">
+                	<div class="category-box" onclick="loadCategory('agro')">
+                    		<img src="agro-commodities.png" alt="Agro Commodities">
+                    		<h3>AGRO-COMMODITIES</h3>
+                	</div>
+                	<div class="category-box" onclick="loadCategory('fmcg')">
+                    		<img src="fmcg.png" alt="FMCG">
+                    		<h3>FMCG</h3>
+                	</div>
+                	<div class="category-box" onclick="loadCategory('general')">
+                    		<img src="general-trading.png" alt="General Trading">
+                    		<h3>GENERAL-TRADING</h3>
+                	</div>
+                	<div class="category-box" onclick="loadCategory('machinery')">
+                    		<img src="Machinery and vehicles.png" alt="Machinery and Vehicles">
+                    		<h3>MACHINERY AND VEHICLES</h3>
+                	</div>
+                	<div class="category-box" onclick="loadCategory('metals')">
+                    		<img src="Metals and alloys.png" alt="Metal and Alloys">
+                    		<h3>METAL AND ALLOYS</h3>
+                	</div>
+                	<div class="category-box" onclick="loadCategory('woods')">
+                    		<img src="woods.png" alt="Woods">
+                    		<h3>WOODS</h3>
+                	</div>
+            	    </div>
+                </section>
+            `;
+
+            history.pushState(null, null, 'categories.html');
+        }
+
+        window.addEventListener('popstate', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && categoryContent[hash]) {
+                loadCategory(hash);
+            } else {
+                loadHomePage();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && categoryContent[hash]) {
+                loadCategory(hash);
+            }
+        });
+    </script>
+</body>
+</html>

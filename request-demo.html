@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Booking - Global Trade Data</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header a:hover {
+            color: #00c3ff;
+        }
+
+        /* Booking Request Section */
+        .booking-request {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .booking-request h1 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-section h2 {
+            color: #1e73be;
+            font-size: 1.5rem;
+            margin-bottom: .8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            margin: 15px 0;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            background: #1e73be;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #003366;
+        }
+
+        /* Booking Features */
+        .booking-features {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            color: #1e73be;
+            margin-top: 0;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: #1e73be;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            width: 70%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .booked-status {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px auto;
+            max-width: 200px;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Confirmation Page */
+        .booking-confirmation {
+            display: none;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .booking-confirmation h1 {
+            color: #003366;
+            margin-bottom: 30px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e73be;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="booking-request" id="bookingRequestSection">
+    <h1>Request a Booking</h1>
+    <div class="form-container">
+        <div class="form-section">
+            <h2>Your Information</h2>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label for="name">Full Name*</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company Name*</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Business Email*</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number*</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="industry">Industry*</label>
+                    <select id="industry" name="industry" required>
+                        <option value="">Select your industry</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="trade">International Trade</option>
+                        <option value="logistics">Logistics & Supply Chain</option>
+                        <option value="finance">Finance & Banking</option>
+                        <option value="consulting">Business Consulting</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Booking Details</h2>
+                
+                <div class="form-group">
+                    <label for="booking-date">Preferred Booking Date*</label>
+                    <input type="date" id="booking-date" name="booking-date" min="" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="booking-time">Preferred Time*</label>
+                    <select id="booking-time" name="booking-time" required>
+                        <option value="">Select a time slot</option>
+                        <option value="9am-11am">9:00 AM - 11:00 AM</option>
+                        <option value="11am-1pm">11:00 AM - 1:00 PM</option>
+                        <option value="1pm-3pm">1:00 PM - 3:00 PM</option>
+                        <option value="3pm-5pm">3:00 PM - 5:00 PM</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="interests">Areas of Interest</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interests" value="import"> Import </label>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interests" value="export"> Export </label>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interests" value="analytics"> Market Analytics</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interests" value="reports"> Custom Reports</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Special Requirements</label>
+                    <textarea id="message" name="message" placeholder="Tell us about any specific requirements or questions you have..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Confirm Booking Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="booking-confirmation" id="bookingConfirmationSection">
+    <h1>Booking Confirmation</h1>
+    <div class="booked-status">BOOKED</div>
+    <div id="bookingDetails"></div>
+    <p>Thank you for your booking request. A confirmation email has been sent to your email address.</p>
+    <p>A member of our team will contact you shortly to confirm all details of your appointment.</p>
+    <button class="submit-btn" onclick="window.location.reload()">Make Another Booking</button>
+</section>
+
+<section class="booking-features">
+    <h2 style="text-align: center; color: #003366; margin-bottom: 30px;">Our Booking Services Include</h2>
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>Personal Consultation</h3>
+            <p>Get personalized attention from our trade experts who will understand your specific business needs and challenges.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Strategy Session</h3>
+            <p>Work with our analysts to develop actionable strategies based on comprehensive trade data and market insights.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Follow-up Support</h3>
+            <p>Receive continued assistance after your initial consultation with dedicated support from our customer success team.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Global Trade Data. All Rights Reserved.</p>
+</footer>
+
+<script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('booking-date').setAttribute('min', today);
+    
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const company = document.getElementById('company').value;
+        const email = document.getElementById('email').value;
+        const industry = document.getElementById('industry').value;
+        const bookingDate = document.getElementById('booking-date').value;
+        const bookingTime = document.getElementById('booking-time').value;
+
+        if (name && company && email && industry && bookingDate && bookingTime) {
+
+            const date = new Date(bookingDate);
+            const formattedDate = date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            let bookingDetailsHTML = `
+                <h3>Booking Information</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Company:</strong> ${company}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Industry:</strong> ${industry}</p>
+                <p><strong>Date:</strong> ${formattedDate}</p>
+                <p><strong>Time:</strong> ${bookingTime}</p>
+            `;
+
+            const serviceInputs = document.querySelectorAll('input[name="services"]:checked');
+            if (serviceInputs.length > 0) {
+                bookingDetailsHTML += '<p><strong>Services:</strong> ';
+                const serviceLabels = Array.from(serviceInputs).map(input => {
+                    return input.parentElement.textContent.trim();
+                });
+                bookingDetailsHTML += serviceLabels.join(', ') + '</p>';
+            }
+
+            document.getElementById('bookingDetails').innerHTML = bookingDetailsHTML;
+            document.getElementById('bookingRequestSection').style.display = 'none';
+            document.getElementById('bookingConfirmationSection').style.display = 'block';
+            
+
+            document.getElementById('bookingConfirmationSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+</script>
+
+</body>
+</html>

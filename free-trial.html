@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Free Trial - Global Trade Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header a:hover {
+            color: #00c3ff;
+        }
+
+        .trial-hero {
+            background: linear-gradient(135deg, #1e73be, #003366);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .trial-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .trial-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .plans {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .plans h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 40px;
+        }
+
+        .plans-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .plan-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .plan-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan-box.popular {
+            border: 2px solid #1e73be;
+        }
+
+        .popular-tag {
+            background: #1e73be;
+            color: white;
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            color: #003366;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #1e73be;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .plan-features {
+            margin: 25px 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .plan-features li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .plan-features li::before {
+            content: "✓";
+            color: #1e73be;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .select-plan-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #1e73be;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .select-plan-btn:hover {
+            background: #003366;
+        }
+
+        .registration {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .registration h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .submit-btn {
+            background: #1e73be;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #003366;
+        }
+
+        .testimonials {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px 20px;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 40px;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #1e73be;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .slider-dot {
+            display: inline-block;
+            height: 12px;
+            width: 12px;
+            background: #ddd;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        .slider-dot.active {
+            background: #1e73be;
+        }
+
+        .faqs {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .faqs h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #1e73be;
+            cursor: pointer;
+            padding: 10px 0;
+            position: relative;
+            padding-right: 30px;
+        }
+
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 10px;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            content: "-";
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            width: 70%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .steps::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ddd;
+            z-index: 1;
+        }
+
+        .step {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step.active {
+            border-color: #1e73be;
+            background: #1e73be;
+            color: white;
+        }
+
+        .step-label {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .prev-btn, .next-btn {
+            padding: 10px 20px;
+            background: #1e73be;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .prev-btn {
+            background: #666;
+        }
+
+        .prev-btn:hover, .next-btn:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e73be;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="trial-hero">
+    <h1>Start Your Free 14-Day Trial</h1>
+    <p>Get full access to our global trade data platform with no commitment. Discover the power of accurate, comprehensive trade intelligence for your business.</p>
+</section>
+
+<section class="registration" id="registration">
+    <h2>Create Your Account</h2>
+    
+    <div class="steps">
+        <div class="step active" id="step1">
+            1
+            <span class="step-label">Account</span>
+        </div>
+        <div class="step" id="step2">
+            2
+            <span class="step-label">Company</span>
+        </div>
+        <div class="step" id="step3">
+            3
+            <span class="step-label">Review</span>
+        </div>
+    </div>
+    
+    <form id="trialForm">
+        <div class="form-step active" id="form-step1">
+            <div class="form-container">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="first-name">First Name*</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Business Email*</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Create Password*</label>
+                        <input type="password" id="password" name="password" required minlength="8">
+                    </div>
+                </div>
+                
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="last-name">Last Name*</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number*</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password*</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required minlength="8">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <div></div> 
+                <button type="button" class="next-btn" id="next1">Next: Company Details</button>
+            </div>
+        </div>
+        
+        <!-- Step 2: Company Details -->
+        <div class="form-step" id="form-step2">
+            <div class="form-container">
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="company-name">Company Name*</label>
+                        <input type="text" id="company-name" name="company-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="industry">Industry*</label>
+                        <select id="industry" name="industry" required>
+                            <option value="">Select your industry</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="trade">International Trade</option>
+                            <option value="logistics">Logistics & Supply Chain</option>
+                            <option value="finance">Finance & Banking</option>
+                            <option value="consulting">Business Consulting</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-column">
+                    <div class="form-group">
+                        <label for="job-title">Job Title*</label>
+                        <input type="text" id="job-title" name="job-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-size">Company Size*</label>
+                        <select id="company-size" name="company-size" required>
+                            <option value="">Select company size</option>
+                            <option value="1-10">1-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201-500">201-500 employees</option>
+                            <option value="501-1000">501-1000 employees</option>
+                            <option value="1000+">1000+ employees</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="button" class="prev-btn" id="prev2">Back</button>
+                <button type="button" class="next-btn" id="next2">Next: Review</button>
+            </div>
+        </div>
+        
+        <div class="form-step" id="form-step3">
+            <h3 style="color: #1e73be;">Your Free Trial Includes:</h3>
+            <ul style="margin-bottom: 30px;">
+                <li>14 days of full platform access</li>
+                <li>Access to global import and export data</li>
+                <li>Basic analytics and reporting features</li>
+                <li>Personal onboarding session</li>
+                <li>Email support during trial period</li>
+            </ul>
+</body>
+</html>

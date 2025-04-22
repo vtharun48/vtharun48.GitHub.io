@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Global Trade Data</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header a:hover {
+            color: #00c3ff;
+        }
+
+        .login-hero {
+            background: linear-gradient(135deg, #1e73be, #003366);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .login-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .login-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .login-container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .login-container h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .login-btn {
+            background: #1e73be;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            background: #003366;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-options a {
+            color: #1e73be;
+            text-decoration: none;
+        }
+
+        .login-options a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            position: relative;
+            background: white;
+            padding: 0 15px;
+            color: #666;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-btn {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .social-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px 20px;
+        }
+
+        .features h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 40px;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card h3 {
+            color: #1e73be;
+            margin-top: 0;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: #1e73be;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e73be;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="categories.html">Categories</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="login-hero">
+    <h1>Welcome Back</h1>
+    <p>Log in to access your Global Trade Data account and explore the latest global trade insights.</p>
+</section>
+
+<section class="login-container">
+    <h2>Log In to Your Account</h2>
+    
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember" style="font-weight: normal;">Remember me</label>
+        </div>
+        
+        <button type="submit" class="login-btn">Log In</button>
+        
+        <div class="login-options">
+            <a href="forgot-password.html">Forgot Password?</a>
+            <a href="register.html">Need an account? Sign up</a>
+        </div>
+        
+        <div class="divider">
+            <span>Or login with</span>
+        </div>
+        
+        <div class="social-login">
+            <button type="button" class="social-btn">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">
+                    <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" fill="#4285F4"/>
+                </svg>
+                Google
+            </button>
+            <button type="button" class="social-btn">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" fill="#1DA1F2"/>
+                </svg>
+                X (Twitter)
+            </button>
+        </div>
+    </form>
+</section>
+
+<section class="features">
+    <h2>Why Choose Global Trade Data</h2>
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Access</h3>
+            <p>Our platform employs bank-level security protocols to ensure your data and account information are always protected.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Real-time Analytics</h3>
+            <p>Access the latest trade data and analytics instantly upon login to make informed business decisions.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3>Global Coverage</h3>
+            <p>Our database covers over 200 countries and territories, providing the most comprehensive trade information available.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2025 Global Trade Data. All Rights Reserved.</p>
+</footer>
+
+<script>
+    window.onload = function() {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'index.html';
+        }
+    };
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const remember = document.getElementById('remember').checked;
+        
+
+        if (name && email && password) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', email);
+            
+
+            if (remember) {
+                localStorage.setItem('rememberMe', 'true');
+            }
+            
+            alert('Login successful! Redirecting to home page...');
+            
+            window.location.href = 'index.html';
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    });
+</script>
+
+</body>
+</html>
